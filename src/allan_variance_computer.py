@@ -146,13 +146,13 @@ class AllanVarianceComputer:
                 allan_variance = np.zeros(6)
                 for i in range(num_averages - 1):
                     allan_variance += np.square(averages[i + 1] - averages[i])
+		if num_averages > 1:
+		        allan_variance /= 2 * (num_averages - 1)
 
-                allan_variance /= 2 * (num_averages - 1)
+		        allan_deviation = np.sqrt(allan_variance)
 
-                allan_deviation = np.sqrt(allan_variance)
-
-                # Write results to CSV
-                imu_output_csv_file_writer.write(f"{period_time} {allan_deviation[0]} {allan_deviation[1]} {allan_deviation[2]} {allan_deviation[3]} {allan_deviation[4]} {allan_deviation[5]}\n")
+		        # Write results to CSV
+		        imu_output_csv_file_writer.write(f"{period_time} 		{allan_deviation[0]} {allan_deviation[1]} {allan_deviation[2]} {allan_deviation[3]} {allan_deviation[4]} {allan_deviation[5]}\n")
 
     def load_yaml_config(self):
         """Load the YAML configuration file and set parameters for IMU data processing."""
